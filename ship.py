@@ -1,3 +1,4 @@
+#you can stop running the code by pressing the reed STOP BUTTON
 import pygame as pg
 
 #simulator of vertical ship motion: function file
