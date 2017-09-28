@@ -15,13 +15,14 @@ def rk4(position,speed):  #function to compute the solution of an ordinary diffe
     k2 = ODE_update(position + dt*k1[0]/2.,speed +dt*k1[1]/2.)  #constants needed by the method
     k3 = ODE_update(position+dt*k2[0]/2,speed+dt*k2[1]/2)   #constants needed by the method
     k4 = ODE_update(position+dt*k3[0],speed+dt*k3[1])   #constants needed by the method
+    #NOTE: all k's are lists: this is because the ODE_update lambda function returns a list of two elements
     sum_of_ks_for_position = dt*k1[0]+2*dt*k2[0]+2*dt*k3[0]+dt*k4[0]    #constants needed by the method
     sum_of_ks_for_speed = dt*k1[1]+2*dt*k2[1]+2*dt*k3[1]+dt*k4[1]   #constants needed by the method
 
     return [position + sum_of_ks_for_position/6, speed + sum_of_ks_for_speed/6]     #the function returns the state at the next instant
 
 
-state_list = [[-2.,0.]]  #list of lists: every sublist contains the states at a different instant
+state_list = [[-2.,0.]]  #list of lists: every sublist contains the states at a different instant, the numbers in the list represent the initial state
 
 for step in range(10000):   #calculating states for 10000 times
     updated_state = rk4(state_list[-1][0],state_list[-1][1])
@@ -31,7 +32,7 @@ position = [sub_list[0] for sub_list in state_list]         #getting just the fi
 
 pg.init()   #pygame function: initiation
 colour = (50, 200, 255)     #color in RGB numbers made in a tuple
-reso = 800, 500             #resolution of screen
+reso = 800, 500             #resolution of screen: made in a tuple
 window = pg.display.set_mode(reso)          #creating the window
 
 ship = pg.image.load('ship.png.png')        #loading the image of the ship
